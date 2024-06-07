@@ -24,22 +24,23 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
     signingConfigs {
         create("release") {
             storeFile = file("../keystore/release.keystore")
             storePassword = "release"
             keyAlias = "releasekeystore"
             keyPassword = "release"
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -72,8 +73,7 @@ bytemaskConfig {
 
     configure("release") {
         enableEncryption = true
-        encryptionSpec.set(EncryptionSpec(algorithm = "AES", transformation = "AES/GCM/NoPadding"))
-        encryptionKeySource = KeySource.Key("DecryptionKey")
+        encryptionKeySource = KeySource.SigningConfig("release")
     }
 }
 
