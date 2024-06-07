@@ -37,6 +37,8 @@ bytemaskConfig {
 
 Next, we just need to store the encryped/masked credentials in `secure.properties` file
 
+⚠️ Here, we assume that we only need `string` properties to store our credentials, we won't consider any numeric value or any value type other than `string`
+
 ```env
 // secure.properties
 API_KEY=ZGVtbzpwQDU1dzByZA==
